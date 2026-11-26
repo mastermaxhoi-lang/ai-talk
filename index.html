@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Презентация: прототип и картинки от ИИ, которые экономят время коллегам, и своя система. Максим Фрай.">
+<meta property="og:title" content="Нескучная ИИшка: настроил ИИ под себя, пользуются все">
+<meta property="og:description" content="Презентация: прототип и картинки от ИИ, которые экономят время коллегам, и своя система. Максим Фрай.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mastermaxhoi-lang.github.io/ai-talk/">
+<meta property="og:image" content="https://mastermaxhoi-lang.github.io/ai-talk/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Нескучная ИИшка</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/неон-альфа.css">
+<style>
+/* Презентация-страница: холст 1920×1080, масштаб под окно. Листать: → ← пробел PageDown PageUp, Home End, F полный экран.
+   Фрагменты (.frag) открываются по одному до перехода. ?print показывает всё для PDF.
+   Посыл (бриф Максима 25.11): настроил ИИ под себя, и он решает задачи, которые упрощают работу коллегам и экономят ресурс компании. */
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow: hidden; }
+.stage { position: fixed; left: 50%; top: 50%; width: 1920px; height: 1080px; transform: translate(-50%, -50%) scale(var(--s, 1)); transform-origin: center; }
+.slide { box-sizing: border-box; position: absolute; inset: 0; padding: 76px 110px 116px; opacity: 0; visibility: hidden; transition: opacity 0.45s ease, visibility 0.45s; overflow: hidden; display: flex; flex-direction: column; }
+.slide.active { opacity: 1; visibility: visible; }
+.vc { margin-top: auto; margin-bottom: auto; }
+.in { opacity: 0; transform: translateY(26px); }
+.slide.active .in { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--d, 0) * 110ms + 120ms); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.frag { opacity: 0; transition: opacity 0.5s, transform 0.5s; }
+.frag.on { opacity: 1; }
+
+/* типографика */
+.kicker { font-size: 18px; }
+.kicker::before { width: 30px; height: 5px; }
+.h { font-family: var(--font-display); font-weight: 700; font-size: 56px; line-height: 1.14; letter-spacing: -0.01em; margin: 20px 0 0; max-width: 1680px; text-wrap: balance; }
+.h .r, .r { color: var(--red); text-shadow: 0 0 18px rgba(255, 59, 47, 0.6); }
+.t { font-size: 30px; line-height: 1.4; margin: 0; }
+.muted { color: var(--muted); }
+.note { position: absolute; left: 110px; right: 300px; bottom: 70px; font-family: var(--font-mono); font-size: 16px; line-height: 1.45; color: var(--dim); }
+.lab { font-family: var(--font-mono); font-size: 18px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c, var(--red)); text-shadow: 0 0 10px color-mix(in srgb, var(--c, var(--red)) 55%, transparent); }
+
+/* общий подвал */
+.chrome { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+.brand { position: absolute; left: 22px; bottom: 14px; font-family: var(--font-mono); font-size: 13px; color: var(--dim); letter-spacing: 0.06em; }
+.brand b { color: var(--red); text-shadow: 0 0 8px var(--red); font-weight: 700; }
+.count { position: absolute; right: 22px; bottom: 14px; font-family: var(--font-mono); font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; }
+.progress { position: absolute; left: 0; bottom: 0; height: 4px; width: var(--p, 0%); background: var(--alfa); box-shadow: 0 0 14px var(--red), 0 0 30px var(--red); transition: width 0.45s; }
+
+/* карточки, картинки */
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-card); padding: 34px 36px; min-width: 0; transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s; }
+.card:hover { border-color: color-mix(in srgb, var(--c, var(--red)) 55%, transparent); box-shadow: 0 0 38px -10px var(--c, var(--red)); transform: translateY(-4px); }
+.shot { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: 0 0 46px -12px rgba(239, 49, 36, 0.55); background: #111; }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.cap { font-size: 20px; color: var(--muted); margin-top: 14px; line-height: 1.35; }
+.nb { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-mono); font-weight: 700; font-size: 26px; line-height: 1; color: var(--c, var(--red)); border: 2px solid var(--c, var(--red)); box-shadow: 0 0 16px -2px var(--c, var(--red)), inset 0 0 12px -4px var(--c, var(--red)); background: #0d0d11; flex: none; }
+.pill { display: inline-flex; align-items: center; gap: 12px; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 22px; }
+.pill.red { background: var(--alfa); color: #fff; box-shadow: 0 0 26px -6px var(--red); }
+.pill.white { background: #fff; color: var(--alfa); }
+.btn-alfa { font-size: 26px; padding: 16px 28px; border-radius: 14px; }
+
+/* 1 титул */
+#s1 .vc { max-width: 1060px; }
+#s1 .title { font-family: var(--font-display); font-weight: 800; font-size: 100px; line-height: 1.02; letter-spacing: -0.02em; margin: 26px 0 0; }
+#s1 .title span { display: block; }
+#s1 .sub { margin-top: 40px; font-size: 32px; line-height: 1.4; color: var(--muted); }
+#s1 .who { margin-top: 56px; }
+#s1 .cases { position: absolute; right: 110px; top: 50%; transform: translateY(-50%); width: 500px; display: grid; gap: 26px; }
+#s1 .case { display: flex; align-items: center; gap: 24px; padding: 26px 30px; border-radius: var(--r-card); background: var(--panel); border: 1px solid var(--line); cursor: pointer; text-decoration: none; color: var(--ink); transition: box-shadow 0.3s; }
+#s1 .case:hover { box-shadow: 0 0 40px -8px var(--red); }
+#s1 .case .n { font-family: var(--font-display); font-weight: 800; font-size: 52px; color: var(--red); text-shadow: 0 0 18px rgba(255, 59, 47, 0.7); width: 96px; }
+#s1 .case b { font-family: var(--font-display); font-weight: 700; font-size: 32px; }
+#s1 .hint { position: absolute; right: 110px; bottom: 70px; font-family: var(--font-mono); font-size: 16px; color: var(--dim); }
+
+/* 2 вопрос залу */
+#s2 .ask { display: flex; align-items: center; gap: 30px; margin-top: 30px; }
+#s2 .ask .h { margin: 0; font-size: 64px; }
+#s2 .hand { font-size: 66px; filter: drop-shadow(0 0 14px rgba(255, 59, 47, 0.6)); animation: wave 2.4s ease-in-out infinite; transform-origin: 70% 90%; }
+@keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(14deg); } 80% { transform: rotate(-8deg); } 90% { transform: rotate(10deg); } }
+#s2 .two { display: grid; grid-template-columns: 1fr 100px 1.3fr; align-items: stretch; margin-top: 64px; }
+#s2 .side { padding: 40px 44px; border-radius: var(--r-card); background: var(--panel); border: 1px solid var(--line); }
+#s2 .side ul { margin: 20px 0 0; padding-left: 30px; display: grid; gap: 12px; font-size: 34px; line-height: 1.3; }
+#s2 .side p { margin: 26px 0 0; font-size: 30px; font-weight: 700; }
+#s2 .side.me { opacity: 0.72; }
+#s2 .side.all { border-color: color-mix(in srgb, var(--red) 50%, transparent); box-shadow: 0 0 44px -12px var(--red); --c: var(--red); }
+#s2 .side.all li::marker { color: var(--red); }
+#s2 .side.all p { color: var(--red); text-shadow: 0 0 12px rgba(255, 59, 47, 0.6); }
+#s2 .arrow { display: grid; place-items: center; font-family: var(--font-mono); font-size: 64px; color: var(--red); text-shadow: 0 0 14px var(--red); }
+
+/* 3 почему эти кейсы */
+#s3 .rows { display: grid; gap: 28px; }
+#s3 .row { display: flex; align-items: center; gap: 36px; padding: 34px 40px; border-radius: var(--r-card); background: var(--panel); border: 1px solid var(--line); text-decoration: none; color: var(--ink); --c: var(--red); cursor: pointer; }
+#s3 .row .txt b { font-family: var(--font-display); font-weight: 700; font-size: 36px; display: block; }
+#s3 .row .txt i { font-style: normal; font-size: 27px; line-height: 1.4; color: var(--muted); display: block; margin-top: 10px; }
+#s3 .row .go { margin-left: auto; font-family: var(--font-mono); font-size: 18px; color: var(--red); white-space: nowrap; }
+
+/* 4 игра */
+#s4 .shot { width: 1060px; height: 662px; margin: 24px auto 0; }
+#s4 .shot .ans { position: absolute; inset: 0; }
+#s4 .tip { position: absolute; right: 110px; bottom: 70px; font-family: var(--font-mono); font-size: 16px; color: var(--dim); }
+
+/* 5 глухой телефон */
+#s5 .chain { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 44px; }
+#s5 .chain::before { content: ""; position: absolute; top: 52px; left: 6%; right: 6%; height: 3px; background: linear-gradient(90deg, var(--red), rgba(255, 59, 47, 0.12)); }
+#s5 .chain::after { content: ""; position: absolute; top: 45px; left: 6%; width: 17px; height: 17px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px #fff, 0 0 26px var(--red); animation: fade-travel 5s linear infinite; }
+@keyframes fade-travel { from { left: 6%; opacity: 1; filter: blur(0); } to { left: calc(94% - 17px); opacity: 0.15; filter: blur(3px); } }
+#s5 .role { position: relative; z-index: 1; padding: 26px 26px 30px; border-radius: var(--r-card); background: var(--panel); border: 1px solid var(--line); }
+#s5 .role h3 { font-family: var(--font-display); font-weight: 700; font-size: 26px; margin: 0; line-height: 1.2; min-height: 64px; }
+#s5 .role q { display: block; margin-top: 18px; font-size: 25px; line-height: 1.35; quotes: "«" "»"; }
+#s5 .role:nth-child(1) q { color: #fff; }
+#s5 .role:nth-child(2) q { color: #e3e3e8; filter: blur(0.2px); }
+#s5 .role:nth-child(3) q { color: #c8c8cf; filter: blur(0.5px); }
+#s5 .role:nth-child(4) q { color: #a9a9b2; filter: blur(0.8px); }
+#s5 .role:nth-child(5) q { color: #8b8b95; filter: blur(1.1px); }
+#s5 .costs { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
+#s5 .costs span { font-family: var(--font-mono); font-size: 22px; padding: 10px 18px; border-radius: 12px; color: var(--red); border: 1px solid color-mix(in srgb, var(--red) 55%, transparent); box-shadow: 0 0 16px -6px var(--red); }
+#s5 .costs b { font-size: 28px; margin-left: 10px; align-self: center; }
+#s5 .fix { margin-top: 34px; padding: 26px 36px; border-radius: 20px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--lime) 55%, transparent); box-shadow: 0 0 34px -12px var(--lime); font-size: 30px; }
+#s5 .fix b { color: var(--lime); text-shadow: 0 0 10px var(--lime); }
+
+/* 6 и 7: конвейер шагов */
+.flow { position: relative; display: grid; gap: 28px; }
+.flow::before { content: ""; position: absolute; top: 36px; left: 4%; right: 4%; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--violet), var(--lime), var(--red)); box-shadow: 0 0 12px rgba(176, 133, 255, 0.6); }
+.flow::after { content: ""; position: absolute; top: 29px; left: 4%; width: 17px; height: 17px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px #fff, 0 0 26px var(--red); animation: travel 5s linear infinite; }
+@keyframes travel { from { left: 4%; } to { left: calc(96% - 17px); } }
+.flow .st { position: relative; z-index: 1; }
+.flow .st .nb { width: 74px; height: 74px; font-size: 24px; }
+.flow .st h3 { font-family: var(--font-display); font-weight: 700; font-size: 28px; margin: 22px 0 0; line-height: 1.2; color: var(--c); text-shadow: 0 0 12px color-mix(in srgb, var(--c) 50%, transparent); }
+.flow .st p { font-size: 24px; line-height: 1.38; margin: 12px 0 0; color: var(--ink); }
+#s6 .flow { grid-template-columns: repeat(4, 1fr); }
+#s6 .big { margin-top: 64px; font-family: var(--font-display); font-weight: 800; font-size: 46px; line-height: 1.2; }
+#s7 .flow { grid-template-columns: repeat(6, 1fr); gap: 22px; }
+#s7 .flow .st .nb { font-size: 17px; }
+#s7 .flow .st p { font-size: 22px; }
+#s7 .hard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 50px; }
+#s7 .hard .card { padding: 28px 32px; --c: var(--amber); }
+#s7 .hard .lab { --c: var(--amber); }
+#s7 .hard b { display: block; font-size: 29px; margin-top: 12px; }
+#s7 .hard p { font-size: 22px; line-height: 1.4; color: var(--muted); margin: 10px 0 0; }
+#s7 .hard p.ok { color: var(--ink); }
+#s7 .hard p.ok::before { content: "→ "; color: var(--lime); }
+
+/* 8 что вышло */
+#s8 .grid { display: grid; grid-template-columns: 1060px 1fr; gap: 56px; align-items: start; }
+#s8 .cmp { position: relative; height: 662px; cursor: ew-resize; user-select: none; touch-action: none; }
+#s8 .cmp .top { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
+#s8 .cmp .bar { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 4px; margin-left: -2px; background: #fff; box-shadow: 0 0 16px var(--red), 0 0 34px var(--red); }
+#s8 .cmp .knob { position: absolute; top: 50%; left: var(--x, 50%); width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: var(--alfa); box-shadow: 0 0 26px var(--red); display: grid; place-items: center; font-family: var(--font-mono); font-weight: 700; font-size: 22px; color: #fff; }
+#s8 .cmp .tag { position: absolute; top: 18px; padding: 8px 14px; border-radius: 10px; font-size: 18px; font-weight: 700; background: rgba(0, 0, 0, 0.75); border: 1px solid rgba(255, 255, 255, 0.2); }
+#s8 .cmp .tag.l { left: 18px; } #s8 .cmp .tag.r { right: 18px; background: var(--alfa); border-color: var(--alfa); }
+#s8 .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+#s8 .stat { padding: 18px 22px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); --c: var(--red); }
+#s8 .stat b { font-family: var(--font-mono); font-weight: 700; font-size: 52px; color: var(--red); text-shadow: 0 0 16px rgba(255, 59, 47, 0.7); display: block; line-height: 1.05; }
+#s8 .stat span { font-size: 19px; color: var(--muted); }
+#s8 .use { margin-top: 24px; display: grid; gap: 16px; }
+#s8 .use div { font-size: 23px; line-height: 1.38; }
+#s8 .use b { display: block; font-size: 17px; font-family: var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c); margin-bottom: 4px; }
+#s8 .qr { display: grid; grid-template-columns: 170px 1fr; gap: 22px; align-items: center; margin-top: 26px; padding: 18px; border-radius: 20px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--red) 50%, transparent); box-shadow: 0 0 30px -12px var(--red); }
+#s8 .qr img { width: 170px; height: 170px; border-radius: 12px; display: block; }
+#s8 .qr .url { font-family: var(--font-mono); font-size: 17px; line-height: 1.35; word-break: break-all; }
+#s8 .qr .btn-alfa { margin-top: 14px; font-size: 22px; padding: 12px 20px; pointer-events: auto; }
+
+/* 9 грабли */
+#s9 .grid { display: grid; grid-template-columns: 1fr 600px; gap: 80px; align-items: center; height: 100%; }
+#s9 .t { font-size: 32px; margin-top: 46px; }
+#s9 .t.b { font-weight: 700; color: #fff; margin-top: 26px; }
+#s9 .shot { height: 720px; }
+#s9 .cap { font-size: 18px; }
+
+/* 10 имиджи */
+#s10 .grid { display: grid; grid-template-columns: 1fr 820px; gap: 70px; align-items: center; }
+#s10 .fact { display: flex; gap: 28px; align-items: flex-start; margin-bottom: 42px; }
+#s10 .fact:last-child { margin-bottom: 0; }
+#s10 .fact .n { font-family: var(--font-display); font-weight: 800; font-size: 44px; color: var(--red); text-shadow: 0 0 14px rgba(255, 59, 47, 0.7); line-height: 1; min-width: 44px; }
+#s10 .fact p { font-size: 32px; line-height: 1.35; margin: 0; }
+#s10 .shot { height: 512px; }
+
+/* 11 сетка вариантов */
+#s11 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 26px; }
+#s11 figure { margin: 0; }
+#s11 .shot { height: 250px; cursor: zoom-in; box-shadow: none; transition: box-shadow 0.3s, transform 0.3s; }
+#s11 .shot:hover { box-shadow: 0 0 36px -6px var(--red); transform: scale(1.03); }
+#s11 .shot .p { position: absolute; left: 12px; top: 12px; padding: 6px 14px; border-radius: 999px; background: var(--alfa); color: #fff; font-weight: 700; font-size: 17px; box-shadow: 0 0 14px var(--red); }
+#s11 figcaption { font-family: var(--font-mono); font-size: 17px; color: var(--muted); margin-top: 10px; }
+#s11 .inbox { padding: 26px 28px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); }
+#s11 .inbox p { font-size: 21px; line-height: 1.4; margin: 12px 0 0; }
+.lightbox { position: absolute; inset: 0; z-index: 9; background: rgba(0, 0, 0, 0.88); display: none; place-items: center; cursor: zoom-out; }
+.lightbox.on { display: grid; }
+.lightbox img { max-width: 1700px; max-height: 960px; border-radius: 20px; box-shadow: 0 0 60px -10px var(--red); }
+
+/* 12 брак */
+#s12 .h { text-align: center; margin: 14px auto 0; }
+#s12 .zoom { position: relative; width: 1160px; height: 698px; margin: 0 auto; }
+#s12 .zoom img { animation: kb 18s ease-in-out infinite alternate; transform-origin: 70% 30%; }
+@keyframes kb { from { transform: scale(1); } to { transform: scale(1.06); } }
+.ring { position: absolute; border: 4px solid var(--red); border-radius: 14px; box-shadow: 0 0 18px var(--red), inset 0 0 14px rgba(255, 59, 47, 0.5); animation: ringglow 1.6s ease-in-out infinite alternate; }
+@keyframes ringglow { to { box-shadow: 0 0 30px var(--red), inset 0 0 18px rgba(255, 59, 47, 0.7); } }
+
+/* 13 цепочка */
+#s13 .chain { display: grid; grid-template-columns: 1fr 80px 1fr 80px 1fr; align-items: start; }
+#s13 .step { transition: opacity 0.4s, transform 0.4s; opacity: 0.45; }
+#s13 .step.on { opacity: 1; transform: translateY(-6px); }
+#s13 .step .shot { height: 380px; box-shadow: none; }
+#s13 .step.on .shot { box-shadow: 0 0 40px -6px var(--red); border-color: var(--red); }
+#s13 .step p { font-size: 27px; line-height: 1.35; margin: 20px 0 0; }
+#s13 .step.last p { font-weight: 700; }
+#s13 .arr { position: relative; height: 380px; }
+#s13 .arr::before { content: ""; position: absolute; top: 50%; left: 12px; right: 12px; height: 3px; background: rgba(255, 59, 47, 0.45); }
+#s13 .arr::after { content: ""; position: absolute; top: calc(50% - 6px); left: 12px; width: 15px; height: 15px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff, 0 0 22px var(--red); animation: hop 1.4s linear infinite; }
+@keyframes hop { to { left: calc(100% - 27px); } }
+#s13 .rule { margin-top: 56px; padding: 28px 36px; border-radius: 20px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--red) 50%, transparent); box-shadow: 0 0 30px -12px var(--red); font-size: 30px; }
+#s13 .rule b { color: var(--red); text-shadow: 0 0 10px var(--red); }
+
+/* живой показ */
+.live { background: radial-gradient(ellipse 70% 70% at 20% 20%, rgba(239, 49, 36, 0.35), transparent 70%), linear-gradient(135deg, #2a0805 0%, #0b0506 55%, #060608 100%); }
+.live::before { content: ""; position: absolute; inset: 22px; border-radius: 34px; border: 3px solid var(--red); box-shadow: 0 0 30px var(--red), inset 0 0 40px rgba(239, 49, 36, 0.35); animation: frame 2.4s ease-in-out infinite alternate; pointer-events: none; }
+@keyframes frame { from { opacity: 0.55; } to { opacity: 1; } }
+.live .badge { display: inline-flex; align-items: center; gap: 14px; padding: 12px 22px; border-radius: 999px; background: #000; border: 1px solid rgba(255, 255, 255, 0.25); font-family: var(--font-mono); font-size: 20px; letter-spacing: 0.12em; }
+.live .badge i { width: 14px; height: 14px; border-radius: 50%; background: var(--red); box-shadow: 0 0 12px var(--red); animation: blink 1.1s ease-in-out infinite; }
+.live .ttl { font-family: var(--font-display); font-weight: 800; font-size: 72px; line-height: 1.06; margin: 40px 0 0; }
+.live .grid { display: grid; grid-template-columns: 880px 1fr; gap: 70px; align-items: center; margin: auto 0; }
+.live ol { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 18px; counter-reset: st; }
+.live ol li { counter-increment: st; display: flex; gap: 20px; font-size: 30px; line-height: 1.3; }
+.live ol li::before { content: counter(st); font-family: var(--font-mono); font-weight: 700; color: var(--red); text-shadow: 0 0 10px var(--red); min-width: 30px; }
+.live .open { margin-top: 46px; font-size: 30px; padding: 20px 34px; pointer-events: auto; }
+.live .shot { height: 620px; }
+.live .status { margin-top: 30px; }
+.live .after { margin-top: 26px; font-size: 24px; color: var(--muted); }
+
+/* 18 граница данных */
+#s18 .rows { display: grid; gap: 22px; }
+#s18 .row { display: grid; grid-template-columns: 680px 1fr; align-items: center; gap: 30px; padding: 30px 40px; border-radius: 20px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--red) 40%, transparent); box-shadow: 0 0 28px -14px var(--red); border-left: 8px solid var(--alfa); }
+#s18 .row b { font-size: 33px; }
+#s18 .row span { font-size: 33px; }
+#s18 .doubt { margin-top: 50px; font-family: var(--font-display); font-weight: 800; font-size: 54px; }
+
+/* 10 откуда задача */
+#s10 .ways { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 28px; }
+#s10 .way { padding: 36px 38px; border-radius: var(--r-card); background: var(--panel); border: 1px solid var(--line); }
+#s10 .way b { display: block; font-family: var(--font-display); font-weight: 800; font-size: 54px; margin-top: 14px; }
+#s10 .way p { font-size: 26px; line-height: 1.4; margin: 16px 0 0; color: var(--muted); }
+#s10 .way.no b { color: #8b8b95; text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 4px; }
+#s10 .way.yes { --c: var(--red); border-color: color-mix(in srgb, var(--red) 50%, transparent); box-shadow: 0 0 44px -12px var(--red); }
+#s10 .way.yes b { color: var(--red); text-shadow: 0 0 18px rgba(255, 59, 47, 0.7); }
+#s10 .way.yes p { color: var(--ink); }
+#s10 .ctx { margin: 44px 0 0; font-size: 28px; color: var(--muted); }
+
+/* 13 сложности: ещё две */
+#s13 .chain .shot { height: 300px; }
+#s13 .arr { height: 300px; }
+#s13 .more { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 40px; }
+#s13 .more div { padding: 24px 30px; border-radius: 20px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent); }
+#s13 .more b { display: block; font-size: 27px; color: var(--amber); text-shadow: 0 0 10px rgba(255, 197, 66, 0.4); }
+#s13 .more span { display: block; font-size: 23px; line-height: 1.4; margin-top: 8px; }
+
+/* 15 что даёт */
+#s15 .gains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+#s15 .gains .card { padding: 36px 38px; min-height: 260px; }
+#s15 .gains b { display: block; font-size: 34px; line-height: 1.3; margin-top: 18px; }
+#s15 .spent { display: flex; align-items: baseline; gap: 30px; margin-top: 56px; }
+#s15 .spent .big { font-family: var(--font-display); font-weight: 800; font-size: 72px; }
+#s15 .spent span:last-child { font-size: 28px; color: var(--muted); }
+
+/* 16 где ещё */
+#s16 .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+#s16 .tile { padding: 30px 30px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); min-height: 210px; display: flex; flex-direction: column; transition: box-shadow 0.3s, border-color 0.3s; }
+#s16 .tile:hover { border-color: color-mix(in srgb, var(--red) 55%, transparent); box-shadow: 0 0 34px -10px var(--red); }
+#s16 .tile b { font-size: 29px; line-height: 1.3; }
+#s16 .tile span { margin-top: auto; padding-top: 18px; font-family: var(--font-mono); font-size: 19px; color: var(--red); text-shadow: 0 0 8px rgba(255, 59, 47, 0.5); }
+#s16 .tile span::before { content: "→ "; }
+
+/* 17 переход: система и гайд */
+#s17 .grid { display: grid; grid-template-columns: 1fr 640px; gap: 70px; align-items: center; }
+#s17 .sys { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; position: relative; }
+#s17 .sys::before { content: ""; position: absolute; left: 31px; top: 30px; bottom: 30px; width: 3px; background: linear-gradient(var(--cyan), var(--violet), var(--white), var(--lime), var(--red)); box-shadow: 0 0 10px rgba(176, 133, 255, 0.6); }
+#s17 .sys li { display: flex; gap: 28px; align-items: center; position: relative; }
+#s17 .sys b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 32px; color: var(--c); text-shadow: 0 0 12px color-mix(in srgb, var(--c) 50%, transparent); }
+#s17 .sys i { display: block; font-style: normal; font-size: 25px; color: var(--muted); margin-top: 4px; }
+.qr { display: grid; grid-template-columns: 170px 1fr; gap: 22px; align-items: center; padding: 18px; border-radius: 20px; background: var(--panel); border: 1px solid color-mix(in srgb, var(--red) 50%, transparent); box-shadow: 0 0 30px -12px var(--red); }
+.qr img { width: 170px; height: 170px; border-radius: 12px; display: block; }
+.qr .url { font-family: var(--font-mono); font-size: 18px; line-height: 1.35; word-break: break-all; margin-top: 6px; }
+.qr .btn-alfa { margin-top: 14px; font-size: 22px; padding: 12px 20px; }
+.qr.big-qr { grid-template-columns: 250px 1fr; padding: 26px; }
+.qr.big-qr img { width: 250px; height: 250px; }
+.qr.big-qr .url { font-size: 21px; }
+.qr .soon { font-family: var(--font-mono); font-size: 15px; color: var(--amber); margin-top: 6px; }
+#s17 .since { font-size: 24px; color: var(--muted); margin: 26px 0 0; line-height: 1.4; }
+
+/* 19 финал */
+#s19 .grid { display: grid; grid-template-columns: 1fr 600px; gap: 80px; align-items: center; }
+#s19 .title { font-family: var(--font-display); font-weight: 800; font-size: 88px; line-height: 1.04; letter-spacing: -0.02em; margin: 0; }
+#s19 .t { font-size: 31px; margin-top: 36px; max-width: 1020px; }
+#s19 .ask { font-size: 30px; line-height: 1.4; margin: 36px 0 0; font-weight: 700; max-width: 1020px; }
+#s19 .proof { margin: 26px 0 30px; font-size: 24px; line-height: 1.4; color: var(--muted); }
+#s19 .proof b { color: var(--red); text-shadow: 0 0 10px var(--red); font-family: var(--font-mono); }
+#s19 .pill { font-size: 22px; }
+
+.live-qr { display: flex; gap: 26px; align-items: center; margin-top: 40px; pointer-events: auto; }
+.live-qr img { width: 170px; height: 170px; border-radius: 12px; }
+.live-qr .url { font-family: var(--font-mono); font-size: 20px; line-height: 1.35; }
+.live-qr .open { margin-top: 14px; font-size: 26px; padding: 14px 26px; }
+#s11 .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+#s11 .grid3 .shot { height: 380px; }
+#s11 .inbox { margin-top: 34px; }
+#s11 .inbox p { font-size: 25px; }
+#s17 .what { display: grid; gap: 22px; }
+#s17 .what p { margin: 0; font-size: 30px; line-height: 1.42; }
+#s17 .what b { color: #fff; }
+#s17 .road { margin: 34px 0 0; font-size: 25px; line-height: 1.45; color: var(--muted); padding-left: 26px; border-left: 4px solid var(--alfa); }
+#s17 .ask { margin: 30px 0 40px; font-size: 28px; font-weight: 700; line-height: 1.4; }
+/* печать в PDF: все слайды по странице, всё видно */
+body.print { overflow: visible; height: auto; }
+body.print .stage { position: static; transform: none; width: 1920px; height: auto; }
+body.print .slide { box-sizing: border-box; position: relative; width: 1920px; height: 1080px; opacity: 1; visibility: visible; page-break-after: always; break-after: page; }
+body.print .in, body.print .frag { opacity: 1 !important; transform: none !important; animation: none !important; }
+body.print .chrome { display: none; }
+body.print .slide .pg { display: block; }
+body.print #s13 .step { opacity: 1; }
+.pg { display: none; position: absolute; right: 22px; bottom: 14px; font-family: var(--font-mono); font-size: 13px; color: var(--dim); }
+@page { size: 1920px 1080px; margin: 0; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="stage" id="stage">
+
+<!-- 1 титул -->
+<section class="slide" id="s1">
+  <div class="vc">
+    <div class="kicker in" style="--d:0">Нескучная ИИшка</div>
+    <h1 class="title in" style="--d:1"><span class="neon-w">Настроил ИИ под себя,</span><span class="neon flicker">пользуются все</span></h1>
+    <p class="sub in" style="--d:2">Два простых кейса, которые экономят время коллегам, и система, из которой они выросли</p>
+    <div class="who in" style="--d:3"><span class="pill red">Максим Фрай · PO Лояльности ММБ</span></div>
+  </div>
+  <div class="cases">
+    <a class="case spin in" style="--d:3" data-go="3"><span class="n">01</span><b>Прототип</b></a>
+    <a class="case spin in" style="--d:4" data-go="8"><span class="n">02</span><b>Картинки</b></a>
+    <a class="case spin in" style="--d:5" data-go="13"><span class="n">03</span><b>Система</b></a>
+  </div>
+  <div class="hint">→ листать · F полный экран</div>
+</section>
+
+<!-- 2 вопрос залу -->
+<section class="slide" id="s2">
+  <div class="kicker in" style="--d:0">Сначала вопрос залу</div>
+  <div class="vc">
+    <div class="ask in" style="--d:1"><span class="hand">✋</span><h2 class="h">Кто пользуется ИИ каждый день?</h2></div>
+    <div class="ask frag"><span class="hand">✋</span><h2 class="h">А кто сделал с ИИ то, чем <span class="r">пользуются коллеги</span>?</h2></div>
+    <div class="two frag">
+      <div class="side me"><div class="lab" style="--c: var(--muted)">ИИ для себя</div><ul><li>письмо и пост</li><li>саммари встречи</li><li>идеи и тексты</li></ul><p>экономит время одному человеку</p></div>
+      <div class="arrow">→</div>
+      <div class="side all spin"><div class="lab">ИИ для других</div><ul><li>прототип для пяти ролей команды</li><li>картинки к статьям без очереди к дизайнерам маркетинга</li></ul><p>экономит время команде и ресурс компании</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 4 игра -->
+<section class="slide" id="s4">
+  <div class="kicker in" style="--d:0">Кейс 1 · Прототип</div>
+  <h2 class="h in" style="--d:1">Найдите на этой витрине то, чего ещё нет на проде</h2>
+  <div class="shot vc in" style="--d:2">
+    <img src="assets/img/витрина-доработки.png" alt="Витрина с доработками">
+    <img class="ans frag" src="assets/img/витрина-метки.png" alt="Та же витрина: доработки обведены метками">
+  </div>
+  <div class="tip">→ ответ: метки доработок</div>
+</section>
+
+<!-- 5 глухой телефон -->
+<section class="slide" id="s5">
+  <div class="kicker in" style="--d:0">Кейс 1 · Зачем прототип</div>
+  <h2 class="h in" style="--d:1">Без прототипа идея доходит до разработки через <span class="r">глухой телефон</span></h2>
+  <div class="vc">
+    <div class="chain in" style="--d:2">
+      <div class="role"><h3>Продакт</h3><q>Фильтр по сфере бизнеса над каталогом</q></div>
+      <div class="role"><h3>Дизайнер</h3><q>Фильтр… где-то над каталогом?</q></div>
+      <div class="role"><h3>Аналитик</h3><q>Какой-то фильтр. Что в нём считаем?</q></div>
+      <div class="role"><h3>Разработка</h3><q>Фильтр чего? Как это оценить?</q></div>
+      <div class="role"><h3>Контент-менеджер</h3><q>А сферы откуда брать?</q></div>
+    </div>
+    <div class="costs in" style="--d:3"><span>переспросы</span><span>доработки</span><span>лишние созвоны</span><span>объяснить ещё раз</span><b>Время тратят все</b></div>
+    <div class="fix frag"><b>С прототипом </b>все пятеро смотрят на одну страницу, а не на пересказ</div>
+  </div>
+  <div class="note">Пример условный: так теряется мысль на каждой передаче.</div>
+</section>
+
+<!-- 6 сначала исследуем -->
+<section class="slide" id="s6">
+  <div class="kicker in" style="--d:0">Кейс 1 · Исследования</div>
+  <h2 class="h in" style="--d:1">Сначала проверяем идею на людях, потом <span class="r">тратим разработку</span></h2>
+  <div class="vc">
+    <div class="flow in" style="--d:2">
+      <div class="st" style="--c: var(--cyan)"><span class="nb">1</span><h3>Прототип</h3><p>Минимум времени: несколько дней работы с ИИ</p></div>
+      <div class="st" style="--c: var(--violet)"><span class="nb">2</span><h3>Юзабилити</h3><p>Исследователи тестируют гипотезу на прототипе, а не на боевых страницах</p></div>
+      <div class="st" style="--c: var(--lime)"><span class="nb">3</span><h3>Вывод</h3><p>Понятно, что работает, что исправить, а что не трогать</p></div>
+      <div class="st" style="--c: var(--red)"><span class="nb">4</span><h3>Разработка</h3><p>Только то, что нужно пользователю</p></div>
+    </div>
+    <div class="big in" style="--d:3">Не тратим ресурс на доработки, которые <span class="r">пользователю не нужны</span></div>
+  </div>
+  <div class="note">Вторую волну юзабилити на прототипе предложили исследователям, решения пока нет.</div>
+</section>
+
+<!-- 7 как двигалась задача -->
+<section class="slide" id="s7">
+  <div class="kicker in" style="--d:0">Кейс 1 · Как двигалась задача</div>
+  <h2 class="h in" style="--d:1">Шесть дней, из них <span class="r">5 часов работы ИИ</span> в диалоге: как двигалась задача</h2>
+  <div class="vc">
+    <div class="flow in" style="--d:2">
+      <div class="st" style="--c: var(--cyan)"><span class="nb">18.11</span><p>Снял прод: тексты, шрифт, цвета, каталог</p></div>
+      <div class="st" style="--c: var(--cyan)"><span class="nb">19.11</span><p>Каждой доработке свой переключатель</p></div>
+      <div class="st" style="--c: var(--violet)"><span class="nb">20.11</span><p>Состав по строкам плана 2027, сверка описаний</p></div>
+      <div class="st" style="--c: var(--violet)"><span class="nb">21.11</span><p>Мои правки: шапка, бегущая строка, хиро</p></div>
+      <div class="st" style="--c: var(--lime)"><span class="nb">22.11</span><p>Клик-тест 190 сценариев, сверка с продом до 8 px</p></div>
+      <div class="st" style="--c: var(--red)"><span class="nb">23.11</span><p>Готово: 4 страницы, 37 переключателей</p></div>
+    </div>
+    <div class="hard">
+      <div class="card spin in" style="--d:3"><div class="lab">Сложность 1</div><b>Вёрстка поехала</b><p>Прод держит заголовки на ручных переносах из CMS</p><p class="ok">Скрипт расставляет переносы как на проде</p></div>
+      <div class="card spin in" style="--d:4"><div class="lab">Сложность 2</div><b>Не у всех доработок есть макеты</b><p>Вид собран по описанию в плане и BRD</p><p class="ok">Каждая такая доработка помечена «условно»</p></div>
+      <div class="card spin in" style="--d:5"><div class="lab">Сложность 3</div><b>Ошибки в описаниях</b><p>В трёх сверках 20.11 сверщик нашёл 15 неверных и около 39 неточных мест</p><p class="ok">Исправили до показа</p></div>
+    </div>
+  </div>
+  <div class="note">Время по истории разговоров, 3 сессии 18–23.11: ИИ в диалоге 5,0 ч (ответы модели и инструменты), ещё ~3 ч в фоне 15 проверок агентами; весь диалог 6,8 ч. Грубая оценка.</div>
+</section>
+
+<!-- 8 что вышло -->
+<section class="slide" id="s8">
+  <div class="kicker in" style="--d:0">Кейс 1 · Что вышло</div>
+  <h2 class="h in" style="--d:1">Прод и доработки на одной странице: <span class="r">открыть может каждый</span></h2>
+  <div class="grid vc">
+    <div class="cmp shot in" style="--d:2" id="cmp">
+      <img src="assets/img/витрина-доработки.png" alt="Прототип: доработки включены">
+      <div class="top"><img src="assets/img/витрина-прод.png" alt="Режим как на проде"></div>
+      <div class="bar"></div><div class="knob">⇆</div>
+      <span class="tag l">Как на проде, 18.11</span>
+      <span class="tag r">С доработками</span>
+    </div>
+    <div class="in" style="--d:3">
+      <div class="stats"><div class="stat spin"><b data-count="4">4</b><span>страницы</span></div><div class="stat spin"><b data-count="37">37</b><span>переключателей доработок</span></div></div>
+      <div class="use">
+        <div style="--c: var(--cyan)"><b>Команде</b>Дизайн, аналитика, разработка и контент-менеджер могут смотреть на одну страницу, а не на пересказ</div>
+        <div style="--c: var(--lime)"><b>Исследователям</b>Гипотезу можно проверить на прототипе до разработки</div>
+      </div>
+      <div class="qr"><img src="assets/img/qr-прототип.svg" alt="QR-код на прототип"><div><div class="url">mastermaxhoi-lang<br>.github.io/loyalty-prod-plus</div><a class="btn-alfa" target="_blank" href="https://mastermaxhoi-lang.github.io/loyalty-prod-plus/">Открыть прототип ↗</a></div></div>
+    </div>
+  </div>
+  <div class="note">Числа счётчиков в прототипе условные, придуманы для показа. Шторку можно тянуть.</div>
+</section>
+
+
+<!-- 10 имиджи -->
+<section class="slide" id="s10">
+  <div class="kicker in" style="--d:0">Кейс 2 · Откуда задача</div>
+  <h2 class="h in" style="--d:1">SEO попросило картинки в статьи, которые <span class="r">помогают индексировать</span> страницы</h2>
+  <div class="vc">
+    <div class="ways">
+      <div class="way no in" style="--d:2"><div class="lab" style="--c: var(--muted)">Сток</div><b>Нельзя</b><p>Рамки компании и брендбук: стоковые фото на свои страницы не ставим</p></div>
+      <div class="way no in" style="--d:3"><div class="lab" style="--c: var(--amber)">Заказать в маркетинге</div><b>Долго</b><p>Ресурс дизайнеров маркетинга дефицитный, картинку ждём неделями</p></div>
+      <div class="way yes spin in" style="--d:4"><div class="lab">ИИ</div><b>Просто</b><p>Картинки по правилам гайда банка: вместо фотостоков нейро-фото</p></div>
+    </div>
+    <p class="ctx in" style="--d:5">В разделе программы лояльности 17 статей, начали с одной: «Как выгодно купить билеты на самолёт».</p>
+  </div>
+  <div class="note">Рекомендация SEO-подрядчика, 23.11; правила картинок из гайда банка.</div>
+</section>
+
+<!-- 11 варианты: в статье три -->
+<section class="slide" id="s11">
+  <div class="kicker in" style="--d:0">Кейс 2 · Как делали</div>
+  <h2 class="h in" style="--d:1">Модель сделала 7 вариантов за вечер, <span class="r">в статью пошли три</span></h2>
+  <div class="vc">
+    <div class="grid3">
+      <figure class="in" style="--d:2"><div class="shot" data-big="assets/img/в5.jpg"><img src="assets/img/в5.jpg" alt="В5"><span class="p">в статье</span></div><figcaption>В5 · терминал · Pro</figcaption></figure>
+      <figure class="in" style="--d:3"><div class="shot" data-big="assets/img/в6.jpg"><img src="assets/img/в6.jpg" alt="В6"><span class="p">в статье</span></div><figcaption>В6 · ноутбук с настоящей витриной · Pro</figcaption></figure>
+      <figure class="in" style="--d:4"><div class="shot" data-big="assets/img/в7.jpg"><img src="assets/img/в7.jpg" alt="В7"><span class="p">в статье</span></div><figcaption>В7 · чемодан · 2.1</figcaption></figure>
+    </div>
+    <div class="inbox in" style="--d:5"><div class="lab" style="--c: var(--cyan)">На входе</div><p>Сцены без текста в кадре и красный акцент. Экран ноутбука генерируем зелёным, настоящий скриншот витрины ставит скрипт. Nano Banana 2.1 для предметов, Pro для рук и света.</p></div>
+  </div>
+  <div class="note">Пилот 23.11.2026: статья про авиабилеты, кадр 16:9, 2K (чемодан 1K). Модели Google Gemini. Клик по картинке открывает её крупно.</div>
+</section>
+
+<!-- 14 живой показ: статья -->
+<section class="slide live" id="s14">
+  <div class="grid">
+    <div>
+      <div class="badge in" style="--d:0"><i></i>ЖИВОЙ ПОКАЗ</div>
+      <div class="ttl neon-w in" style="--d:1">Что вышло: статья с картинками от ИИ</div>
+      <div class="status in" style="--d:2"><span class="pill white led" style="--c: var(--alfa)">Сейчас на согласовании</span></div>
+      <ol class="in" style="--d:3">
+        <li>Сейчас в тексте иллюстраций нет, только обложка</li>
+        <li>Три картинки в разделах статьи</li>
+        <li>Ноутбук с настоящей витриной партнёров</li>
+      </ol>
+      <div class="live-qr in" style="--d:4"><img src="assets/img/qr-статья.svg" alt="QR-код на статью"><div><div class="url">mastermaxhoi-lang<br>.github.io/ai-images</div><a class="btn-alfa open" target="_blank" href="https://mastermaxhoi-lang.github.io/ai-images/">Открыть статью ↗</a></div></div>
+    </div>
+    <div class="shot in" style="--d:2"><img src="assets/img/статья-картинка-3.png" alt="Статья с картинкой: ноутбук с витриной" style="object-position: left top"></div>
+  </div>
+</section>
+
+<!-- 15 что даёт кейс 2 -->
+<section class="slide" id="s15">
+  <div class="kicker in" style="--d:0">Кейс 2 · Что это даёт</div>
+  <h2 class="h in" style="--d:1">Ресурс дизайнеров маркетинга уходит туда, <span class="r">где без них нельзя</span></h2>
+  <div class="vc">
+    <div class="gains">
+      <div class="card spin in" style="--d:2"><div class="lab" style="--c: var(--cyan)">Время</div><b>Картинки к статьям не стоят в очереди к маркетингу</b></div>
+      <div class="card spin in" style="--d:3"><div class="lab" style="--c: var(--lime)">Деньги</div><b>Без фотосессии и подрядчика: генерация по правилам гайда банка</b></div>
+      <div class="card spin in" style="--d:4"><div class="lab" style="--c: var(--violet)">Масштаб</div><b>Тот же способ подходит для остальных 16 статей раздела</b></div>
+    </div>
+    <div class="spent in" style="--d:5"><span class="big neon">0,7 часа</span><span>на пилот картинок 23.11; сборку статьи 25.11 отдельно не мерил</span></div>
+  </div>
+  <div class="note">Время: активный диалог с ИИ по истории разговоров, паузы длиннее 10 минут не считаются, грубая оценка.</div>
+</section>
+
+<!-- 16 где ещё -->
+<section class="slide" id="s16">
+  <div class="kicker in" style="--d:0">Где ещё пригодится</div>
+  <h2 class="h in" style="--d:1">Похожих задач много: вот что можно сделать с ИИ <span class="r">для коллег</span></h2>
+  <div class="tiles vc">
+    <div class="tile in" style="--d:2"><b>ТЗ разметки со скрином каждого элемента</b><span>аналитикам</span></div>
+    <div class="tile in" style="--d:3"><b>Кликабельный прототип дашборда к ТЗ</b><span>аналитикам</span></div>
+    <div class="tile in" style="--d:3"><b>Бэклог гипотез с тем, как мерить</b><span>команде</span></div>
+    <div class="tile in" style="--d:4"><b>Разбор конкурентов по публичным страницам</b><span>продажам и бизнесу</span></div>
+    <div class="tile in" style="--d:4"><b>Бриф и анкеты исследования</b><span>исследователям</span></div>
+    <div class="tile in" style="--d:5"><b>Темы SEO-статей с частотностью</b><span>SEO-подрядчику</span></div>
+    <div class="tile in" style="--d:5"><b>Сверка цифр в документе перед отправкой</b><span>руководителю</span></div>
+    <div class="tile in" style="--d:5"><b>Шпаргалка по правилам программы</b><span>поддержке и продажам</span></div>
+  </div>
+</section>
+
+<!-- 13 кейс 3: своя система и финал -->
+<section class="slide" id="s17">
+  <div class="kicker in" style="--d:0">Кейс 3 · Своя система</div>
+  <h2 class="h in" style="--d:1">Чтобы делать такое, нужна <span class="r">своя система</span></h2>
+  <div class="grid vc">
+    <div>
+      <div class="what">
+        <p class="in" style="--d:2"><b>Обычный чат</b> почти не знает твою работу: кто ты, где файлы, какие правила, приходится объяснять заново.</p>
+        <p class="in" style="--d:3"><b>Своя система</b> это ИИ, который уже знает твою работу: правила команды, шаблоны документов, где что лежит. А перед отдачей работу проверяет отдельный агент-сверщик.</p>
+        <p class="in" style="--d:4"><b>Зачем:</b> повторяемые задачи идут по готовой инструкции, а результат можно отдать коллегам. Так и получились прототип и картинки.</p>
+      </div>
+      <p class="road in" style="--d:5">Путь трудный и недешёвый: я проходил курсы и наступал на грабли. Проверку пришлось встроить в саму систему, и поправок стало на треть меньше. В гайде всё по шагам, чтобы обойти грабли, на которые наступил я.</p>
+    </div>
+    <div class="in" style="--d:4">
+      <div class="qr big-qr"><img src="assets/img/qr-гайд.svg" alt="QR-код на гайд"><div><div class="lab">Гайд пошагово</div><div class="url">mastermaxhoi-lang<br>.github.io/ai-guide</div><a class="btn-alfa" target="_blank" href="https://mastermaxhoi-lang.github.io/ai-guide/">Открыть гайд ↗</a></div></div>
+      <p class="since">Свою систему строю с мая 2026</p>
+    </div>
+  </div>
+  <p class="ask in" style="--d:6">Выберите задачу, результата которой ждут коллеги, и попробуйте отдать её ИИ. С данными банка только во внутренний ИИ банка.</p>
+  <div class="note">Поправки: аудит моих реплик скриптом, грубый счёт; 05.10–21.10: 41 из 430 (9,5%), 22.10–24.11: 42 из 667 (6,3%).</div>
+</section>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+</div>
+
+<div class="chrome">
+  <div class="brand"><b>Нескучная ИИшка</b> · Максим Фрай</div>
+  <div class="count" id="count"></div>
+  <div class="progress" id="progress"></div>
+</div>
+
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const N = slides.length;
+  const print = new URLSearchParams(location.search).has('print');
+  slides.forEach((s, i) => { const p = document.createElement('div'); p.className = 'pg'; p.textContent = `${String(i + 1).padStart(2, '0')} / ${N}`; s.appendChild(p); });
+  if (print) { document.body.classList.add('print'); slides.forEach(s => s.classList.add('active')); document.querySelectorAll('.frag').forEach(f => f.classList.add('on')); return; }
+
+  const stage = document.getElementById('stage');
+  const fit = () => stage.style.setProperty('--s', Math.min(innerWidth / 1920, innerHeight / 1080));
+  addEventListener('resize', fit); fit();
+
+  let cur = 0;
+  const frags = s => [...s.querySelectorAll('.frag')];
+  const count = (el) => {
+    const to = +el.dataset.count, suf = el.dataset.suffix || '', t0 = performance.now(), dur = 1200;
+    const tick = (t) => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(to * e) + (k === 1 ? suf : ''); if (k < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  };
+  let chainTimer = null;
+  const enter = (s) => {
+    s.querySelectorAll('[data-count]').forEach(el => setTimeout(() => count(el), 500));
+    if (s.id === 's8') sweep();
+    clearInterval(chainTimer);
+    if (s.id === 's13') { const st = [...s.querySelectorAll('.step')]; let k = 0; st.forEach(x => x.classList.remove('on')); st[0].classList.add('on'); chainTimer = setInterval(() => { st[k].classList.remove('on'); k = (k + 1) % st.length; st[k].classList.add('on'); }, 2200); }
+  };
+  const show = (i, back = false) => {
+    i = Math.max(0, Math.min(N - 1, i));
+    slides[cur].classList.remove('active');
+    cur = i;
+    const s = slides[cur];
+    frags(s).forEach(f => f.classList.toggle('on', back));
+    void s.offsetWidth; s.classList.add('active');
+    document.getElementById('count').textContent = `${String(cur + 1).padStart(2, '0')} / ${N}`;
+    document.getElementById('progress').style.setProperty('--p', ((cur + 1) / N * 100) + '%');
+    history.replaceState(null, '', '#' + (cur + 1));
+    enter(s);
+  };
+  const next = () => { const f = frags(slides[cur]).find(x => !x.classList.contains('on')); if (f) f.classList.add('on'); else show(cur + 1); };
+  const prev = () => { const on = frags(slides[cur]).filter(x => x.classList.contains('on')); if (on.length) on[on.length - 1].classList.remove('on'); else show(cur - 1, true); };
+
+  const lb = document.getElementById('lb');
+  document.querySelectorAll('[data-big]').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); lb.querySelector('img').src = el.dataset.big; lb.classList.add('on'); }));
+  lb.addEventListener('click', () => lb.classList.remove('on'));
+  document.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); show(+el.dataset.go - 1); }));
+
+  addEventListener('keydown', e => {
+    if (lb.classList.contains('on')) { if (e.key === 'Escape' || e.key === ' ') lb.classList.remove('on'); return; }
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') show(0); else if (e.key === 'End') show(N - 1);
+    else if (e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {}); }
+  });
+
+  // шторка «прод / доработки»
+  const cmp = document.getElementById('cmp');
+  let raf = null;
+  const setX = v => cmp.style.setProperty('--x', Math.max(0, Math.min(100, v)) + '%');
+  function sweep() { cancelAnimationFrame(raf); const t0 = performance.now() + 700; const go = t => { const k = Math.max(0, Math.min(1, (t - t0) / 1800)), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; setX(100 - 50 * e); if (k < 1) raf = requestAnimationFrame(go); }; setX(100); raf = requestAnimationFrame(go); }
+  const drag = e => { const r = cmp.getBoundingClientRect(); setX((e.clientX - r.left) / r.width * 100); };
+  cmp.addEventListener('pointerdown', e => { cancelAnimationFrame(raf); cmp.setPointerCapture(e.pointerId); drag(e); cmp.onpointermove = drag; });
+  cmp.addEventListener('pointerup', () => { cmp.onpointermove = null; });
+
+  const start = parseInt(location.hash.slice(1), 10);
+  show(Number.isFinite(start) ? start - 1 : 0);
+})();
+</script>
+</body>
+</html>
